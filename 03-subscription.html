@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订阅模式 - 互联网商业模式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+        }
+
+        .nav-tree {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .nav-link.active .nav-number {
+            background: white;
+            color: #667eea;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .header .number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .header .description {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section p {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .examples-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 20px;
+        }
+
+        .examples-box h3 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .examples-box p {
+            color: #3498db;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .pros-section ul,
+        .cons-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .pros-section li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        .pros-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .cons-section li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        .cons-section li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                width: 100%;
+            }
+
+            .main-container {
+                flex-direction: column;
+            }
+
+            .nav-tree {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">商业模式导航</div>
+                <ul class="nav-tree">
+                    <li class="nav-item">
+                        <a href="01-advertising.html" class="nav-link">
+                            <span class="nav-number">1</span>
+                            <span>广告模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="02-commission.html" class="nav-link">
+                            <span class="nav-number">2</span>
+                            <span>平台佣金模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="03-subscription.html" class="nav-link active">
+                            <span class="nav-number">3</span>
+                            <span>订阅模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="04-freemium.html" class="nav-link">
+                            <span class="nav-number">4</span>
+                            <span>免费增值模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="05-transaction-fee.html" class="nav-link">
+                            <span class="nav-number">5</span>
+                            <span>交易手续费模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="06-cloud-service.html" class="nav-link">
+                            <span class="nav-number">6</span>
+                            <span>云服务模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="07-content-payment.html" class="nav-link">
+                            <span class="nav-number">7</span>
+                            <span>内容付费/知识付费</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="08-ecosystem.html" class="nav-link">
+                            <span class="nav-number">8</span>
+                            <span>生态闭环模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="09-data-monetization.html" class="nav-link">
+                            <span class="nav-number">9</span>
+                            <span>数据变现模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="10-gaming.html" class="nav-link">
+                            <span class="nav-number">10</span>
+                            <span>游戏模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="11-live-streaming.html" class="nav-link">
+                            <span class="nav-number">11</span>
+                            <span>直播/打赏模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="12-sharing-economy.html" class="nav-link">
+                            <span class="nav-number">12</span>
+                            <span>共享经济模式</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content">
+            <a href="index.html" class="back-link">← 返回首页</a>
+
+            <div class="card">
+            <div class="header">
+                <span class="number">3</span>
+                <h1>订阅模式</h1>
+                <p class="description">用户按月/年付费，获得持续服务</p>
+            </div>
+
+            <div class="section">
+                <h2>核心原理</h2>
+                <p>用户支付固定费用获得一段时间内的服务使用权。平台通过持续提供价值来留住用户，依靠长期订阅获得稳定的现金流。通常包含多个价格层级以满足不同用户需求。</p>
+                <p>订阅模式将一次性交易转化为长期关系。关键在于保持用户满意度，持续交付价值，让用户觉得续订是值得的。企业可以基于订阅收入进行长期规划和投资，而不必担心收入的剧烈波动。</p>
+            </div>
+
+            <div class="examples-box">
+                <h3>典型案例</h3>
+                <p>Netflix、Spotify、Office 365、各种SaaS</p>
+            </div>
+
+            <div class="section pros-section">
+                <h2>优势</h2>
+                <ul>
+                    <li>收入可预测，便于财务规划和预算分配</li>
+                    <li>长期用户生命周期价值高，可持续盈利</li>
+                    <li>与客户建立持续关系，便于交叉销售和增购</li>
+                    <li>流失率指标便于监控和优化，可及时发现问题</li>
+                    <li>收入平滑，不易受季节性波动影响</li>
+                </ul>
+            </div>
+
+            <div class="section cons-section">
+                <h2>缺点</h2>
+                <ul>
+                    <li>获客成本高，需要长期才能回本</li>
+                    <li>用户取消订阅容易，留存压力大</li>
+                    <li>需要持续创新以保持价值感知</li>
+                    <li>价格敏感度高，定价策略关键</li>
+                    <li>初期可能亏损，需要大量资金投入</li>
+                </ul>
+            </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -19,41 +19,131 @@
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
+        .main-container {
+            display: flex;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+        }
+
+        .nav-tree {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .nav-link.active .nav-number {
+            background: white;
+            color: #667eea;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
         }
 
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .header h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            color: #2c3e50;
         }
 
         .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.1rem;
+            color: #7f8c8d;
         }
 
         .models-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
 
         .model-card {
             background: white;
             border-radius: 12px;
-            padding: 25px;
+            padding: 30px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
 
         .model-card:hover {
@@ -65,43 +155,48 @@
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             text-align: center;
-            line-height: 40px;
+            line-height: 50px;
             font-weight: bold;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
         }
 
         .model-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             color: #2c3e50;
         }
 
         .model-description {
             color: #7f8c8d;
             margin-bottom: 15px;
+            font-size: 1rem;
         }
 
         .model-examples {
-            margin-bottom: 15px;
+            color: #3498db;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
         }
 
         .model-examples strong {
-            color: #3498db;
+            color: #2c3e50;
         }
 
-        .core-logic {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+        .arrow-icon {
+            display: inline-block;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
         }
 
-        .core-logic strong {
-            color: #667eea;
+        .model-card:hover .arrow-icon {
+            transform: translateX(5px);
         }
 
         .trends-section {
@@ -136,8 +231,22 @@
         .footer {
             text-align: center;
             color: white;
-            margin-top: 50px;
+            margin-top: 40px;
             opacity: 0.8;
+            padding: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                width: 100%;
+            }
+
+            .main-container {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 768px) {
@@ -148,127 +257,203 @@
             .models-grid {
                 grid-template-columns: 1fr;
             }
+
+            .nav-tree {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>互联网公司商业模式大全</h1>
-            <p>探索当前互联网主流的盈利模式与商业逻辑</p>
-        </div>
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">商业模式导航</div>
+                <ul class="nav-tree">
+                    <li class="nav-item">
+                        <a href="01-advertising.html" class="nav-link">
+                            <span class="nav-number">1</span>
+                            <span>广告模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="02-commission.html" class="nav-link">
+                            <span class="nav-number">2</span>
+                            <span>平台佣金模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="03-subscription.html" class="nav-link">
+                            <span class="nav-number">3</span>
+                            <span>订阅模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="04-freemium.html" class="nav-link">
+                            <span class="nav-number">4</span>
+                            <span>免费增值模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="05-transaction-fee.html" class="nav-link">
+                            <span class="nav-number">5</span>
+                            <span>交易手续费模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="06-cloud-service.html" class="nav-link">
+                            <span class="nav-number">6</span>
+                            <span>云服务模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="07-content-payment.html" class="nav-link">
+                            <span class="nav-number">7</span>
+                            <span>内容付费/知识付费</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="08-ecosystem.html" class="nav-link">
+                            <span class="nav-number">8</span>
+                            <span>生态闭环模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="09-data-monetization.html" class="nav-link">
+                            <span class="nav-number">9</span>
+                            <span>数据变现模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="10-gaming.html" class="nav-link">
+                            <span class="nav-number">10</span>
+                            <span>游戏模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="11-live-streaming.html" class="nav-link">
+                            <span class="nav-number">11</span>
+                            <span>直播/打赏模式</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="12-sharing-economy.html" class="nav-link">
+                            <span class="nav-number">12</span>
+                            <span>共享经济模式</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
 
-        <div class="models-grid">
-            <div class="model-card">
-                <span class="model-number">1</span>
-                <h2 class="model-title">广告模式</h2>
-                <p class="model-description">通过免费吸引用户流量，展示广告获得收入</p>
-                <div class="model-examples"><strong>典型案例：</strong>Google、Facebook、字节跳动、微博</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>用户注意力变现</div>
+        <main class="content">
+            <div class="header">
+                <h1>互联网公司商业模式大全</h1>
+                <p>探索当前互联网主流的盈利模式、商业原理、优势与挑战</p>
             </div>
 
-            <div class="model-card">
-                <span class="model-number">2</span>
-                <h2 class="model-title">平台佣金模式</h2>
-                <p class="model-description">撮合买卖双方，从交易中抽取佣金</p>
-                <div class="model-examples"><strong>典型案例：</strong>淘宝、美团、滴滴、Airbnb</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>双边网络效应 + 交易抽成</div>
+            <div class="models-grid">
+                <a href="01-advertising.html" class="model-card">
+                    <span class="model-number">1</span>
+                    <h2 class="model-title">广告模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">通过免费吸引用户流量，展示广告获得收入</p>
+                    <div class="model-examples"><strong>典型案例：</strong>Google、Facebook、字节跳动、微博</div>
+                </a>
+
+                <a href="02-commission.html" class="model-card">
+                    <span class="model-number">2</span>
+                    <h2 class="model-title">平台佣金模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">撮合买卖双方，从交易中抽取佣金</p>
+                    <div class="model-examples"><strong>典型案例：</strong>淘宝、美团、滴滴、Airbnb</div>
+                </a>
+
+                <a href="03-subscription.html" class="model-card">
+                    <span class="model-number">3</span>
+                    <h2 class="model-title">订阅模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">用户按月/年付费，获得持续服务</p>
+                    <div class="model-examples"><strong>典型案例：</strong>Netflix、Spotify、Office 365、各种SaaS</div>
+                </a>
+
+                <a href="04-freemium.html" class="model-card">
+                    <span class="model-number">4</span>
+                    <h2 class="model-title">免费增值模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">基础功能免费，高级功能收费</p>
+                    <div class="model-examples"><strong>典型案例：</strong>Dropbox、Slack、Canva、Notion</div>
+                </a>
+
+                <a href="05-transaction-fee.html" class="model-card">
+                    <span class="model-number">5</span>
+                    <h2 class="model-title">交易手续费模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">提供支付/金融服务，按交易额收取手续费</p>
+                    <div class="model-examples"><strong>典型案例：</strong>PayPal、Stripe、支付宝、微信支付</div>
+                </a>
+
+                <a href="06-cloud-service.html" class="model-card">
+                    <span class="model-number">6</span>
+                    <h2 class="model-title">云服务模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">提供计算、存储、数据库等基础设施服务</p>
+                    <div class="model-examples"><strong>典型案例：</strong>AWS、Azure、阿里云、腾讯云</div>
+                </a>
+
+                <a href="07-content-payment.html" class="model-card">
+                    <span class="model-number">7</span>
+                    <h2 class="model-title">内容付费/知识付费 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">优质内容或知识产品直接售卖</p>
+                    <div class="model-examples"><strong>典型案例：</strong>得到、喜马拉雅VIP、知识星球、付费课程</div>
+                </a>
+
+                <a href="08-ecosystem.html" class="model-card">
+                    <span class="model-number">8</span>
+                    <h2 class="model-title">生态闭环模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">硬件 + 软件 + 服务深度绑定</p>
+                    <div class="model-examples"><strong>典型案例：</strong>Apple、小米、华为</div>
+                </a>
+
+                <a href="09-data-monetization.html" class="model-card">
+                    <span class="model-number">9</span>
+                    <h2 class="model-title">数据变现模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">通过数据分析提供商业洞察或精准营销</p>
+                    <div class="model-examples"><strong>典型案例：</strong>各类大数据公司、DMP平台</div>
+                </a>
+
+                <a href="10-gaming.html" class="model-card">
+                    <span class="model-number">10</span>
+                    <h2 class="model-title">游戏模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">免费游玩 + 道具/皮肤收费 或 买断制</p>
+                    <div class="model-examples"><strong>典型案例：</strong>腾讯游戏、Steam、网易游戏</div>
+                </a>
+
+                <a href="11-live-streaming.html" class="model-card">
+                    <span class="model-number">11</span>
+                    <h2 class="model-title">直播/打赏模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">主播通过粉丝打赏获得收入，平台分成</p>
+                    <div class="model-examples"><strong>典型案例：</strong>抖音直播、虎牙、斗鱼</div>
+                </a>
+
+                <a href="12-sharing-economy.html" class="model-card">
+                    <span class="model-number">12</span>
+                    <h2 class="model-title">共享经济模式 <span class="arrow-icon">→</span></h2>
+                    <p class="model-description">共享闲置资源，提高资源利用率</p>
+                    <div class="model-examples"><strong>典型案例：</strong>共享单车、共享充电宝、共享办公</div>
+                </a>
             </div>
 
-            <div class="model-card">
-                <span class="model-number">3</span>
-                <h2 class="model-title">订阅模式</h2>
-                <p class="model-description">用户按月/年付费，获得持续服务</p>
-                <div class="model-examples"><strong>典型案例：</strong>Netflix、Spotify、Office 365、各种SaaS</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>可预测的经常性收入</div>
+            <div class="trends-section">
+                <h2>趋势观察</h2>
+                <ul class="trends-list">
+                    <li>单一模式的公司越来越少</li>
+                    <li>多元化收入结构成为主流</li>
+                    <li>线上线下融合（O2O）越来越普遍</li>
+                    <li>AI驱动的个性化服务正在重塑各行业</li>
+                </ul>
             </div>
 
-            <div class="model-card">
-                <span class="model-number">4</span>
-                <h2 class="model-title">免费增值模式</h2>
-                <p class="model-description">基础功能免费，高级功能收费</p>
-                <div class="model-examples"><strong>典型案例：</strong>Dropbox、Slack、Canva、Notion</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>免费获客 + 付费转化</div>
+            <div class="footer">
+                <p>© 2026 互联网商业模式研究 | 纯静态网站</p>
             </div>
-
-            <div class="model-card">
-                <span class="model-number">5</span>
-                <h2 class="model-title">交易手续费模式</h2>
-                <p class="model-description">提供支付/金融服务，按交易额收取手续费</p>
-                <div class="model-examples"><strong>典型案例：</strong>PayPal、Stripe、支付宝、微信支付</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>规模效应 + 资金沉淀</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">6</span>
-                <h2 class="model-title">云服务模式</h2>
-                <p class="model-description">提供计算、存储、数据库等基础设施服务</p>
-                <div class="model-examples"><strong>典型案例：</strong>AWS、Azure、阿里云、腾讯云</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>按使用量计费 + 企业级客户</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">7</span>
-                <h2 class="model-title">内容付费/知识付费</h2>
-                <p class="model-description">优质内容或知识产品直接售卖</p>
-                <div class="model-examples"><strong>典型案例：</strong>得到、喜马拉雅VIP、知识星球、付费课程</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>内容价值直接变现</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">8</span>
-                <h2 class="model-title">生态闭环模式</h2>
-                <p class="model-description">硬件 + 软件 + 服务深度绑定</p>
-                <div class="model-examples"><strong>典型案例：</strong>Apple、小米、华为</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>多维度触点，提高用户粘性</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">9</span>
-                <h2 class="model-title">数据变现模式</h2>
-                <p class="model-description">通过数据分析提供商业洞察或精准营销</p>
-                <div class="model-examples"><strong>典型案例：</strong>各类大数据公司、DMP平台</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>数据价值挖掘</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">10</span>
-                <h2 class="model-title">游戏模式</h2>
-                <p class="model-description">免费游玩 + 道具/皮肤收费 或 买断制</p>
-                <div class="model-examples"><strong>典型案例：</strong>腾讯游戏、Steam、网易游戏</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>娱乐消费 + 虚拟商品</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">11</span>
-                <h2 class="model-title">直播/打赏模式</h2>
-                <p class="model-description">主播通过粉丝打赏获得收入，平台分成</p>
-                <div class="model-examples"><strong>典型案例：</strong>抖音直播、虎牙、斗鱼</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>情感价值 + 虚拟礼物</div>
-            </div>
-
-            <div class="model-card">
-                <span class="model-number">12</span>
-                <h2 class="model-title">共享经济模式</h2>
-                <p class="model-description">共享闲置资源，提高资源利用率</p>
-                <div class="model-examples"><strong>典型案例：</strong>共享单车、共享充电宝、共享办公</div>
-                <div class="core-logic"><strong>核心逻辑：</strong>资产轻量化 + 碎片化需求匹配</div>
-            </div>
-        </div>
-
-        <div class="trends-section">
-            <h2>趋势观察</h2>
-            <ul class="trends-list">
-                <li>单一模式的公司越来越少</li>
-                <li>多元化收入结构成为主流</li>
-                <li>线上线下融合（O2O）越来越普遍</li>
-                <li>AI驱动的个性化服务正在重塑各行业</li>
-            </ul>
-        </div>
-
-        <div class="footer">
-            <p>© 2026 互联网商业模式研究 | 纯静态网站</p>
-        </div>
+        </main>
     </div>
 </body>
 </html>
