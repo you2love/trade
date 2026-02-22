@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>广告模式 - 互联网商业模式</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -199,6 +200,61 @@
             margin: 0;
         }
 
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .diagram-container h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
         .pros-section ul,
         .cons-section ul {
             list-style: none;
@@ -241,6 +297,57 @@
             font-size: 1.3rem;
         }
 
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .highlight-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tab-container {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #e0e0e0;
+            color: #555;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 0 8px 8px 8px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         @media (max-width: 1200px) {
             .sidebar {
                 position: relative;
@@ -271,6 +378,15 @@
 
             .header .description {
                 font-size: 1rem;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
             }
         }
     </style>
@@ -396,29 +512,186 @@
                 <p>Google、Facebook、字节跳动、微博</p>
             </div>
 
-            <div class="section pros-section">
-                <h2>优势</h2>
-                <ul>
-                    <li>用户免费使用，获客成本低，快速积累用户规模</li>
-                    <li>规模化能力强，用户越多广告展示机会越多，收入越高</li>
-                    <li>可结合大数据和AI实现精准广告投放，提高转化率和ROI</li>
-                    <li>边际成本几乎为零，增加用户不会显著增加成本</li>
-                    <li>网络效应强，用户基数大形成正反馈循环</li>
-                </ul>
+            <div class="section">
+                <h2>商业模式流程</h2>
+                <div class="diagram-container">
+                    <h3>广告模式核心流程</h3>
+                    <div class="mermaid">
+                    graph LR
+                        A[用户提供行为数据] --> B[平台收集分析数据]
+                        B --> C[用户画像形成]
+                        C --> D[广告主投放广告]
+                        D --> E[平台精准匹配]
+                        E --> F[用户观看广告]
+                        F --> G[广告主获得曝光]
+                        G --> H[平台获得广告收入]
+                        H --> I[平台优化服务吸引更多用户]
+                        I --> A
+                        
+                        style A fill:#e8f5e9
+                        style H fill:#e3f2fd
+                        style I fill:#fff3e0
+                    </div>
+                </div>
             </div>
 
-            <div class="section cons-section">
-                <h2>缺点</h2>
-                <ul>
-                    <li>过度依赖广告收入，经济周期波动影响大，抗风险能力弱</li>
-                    <li>用户体验与广告存在天然矛盾，广告过多会损害用户体验</li>
-                    <li>需要庞大的用户基数才能实现盈利，前期投入巨大</li>
-                    <li>隐私保护要求越来越高，监管风险增加，如GDPR等法规限制</li>
-                    <li>广告拦截技术普及，影响广告投放效果</li>
-                </ul>
+            <div class="section">
+                <h2>用户交互流程</h2>
+                <div class="diagram-container">
+                    <h3>广告投放序列图</h3>
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant 用户
+                        participant 平台
+                        participant 广告主
+                        participant 广告网络
+                        
+                        Note over 用户,平台: 免费使用产品/服务
+                        用户->>平台: 使用平台服务
+                        平台->>平台: 收集用户行为数据
+                        平台->>平台: 构建用户画像
+                        
+                        广告主->>平台: 投放广告需求
+                        广告主->>平台: 设定目标受众和预算
+                        平台->>广告网络: 竞价匹配
+                        广告网络->>平台: 返回最优广告
+                        
+                        平台->>用户: 展示精准广告
+                        用户->>平台: 点击/观看广告
+                        平台->>广告主: 报告广告效果
+                        广告主->>平台: 支付广告费用
+                        
+                        Note over 用户,平台: 循环往复，规模效应增强
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>优势 vs 缺点对比</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">优势 ✓</th>
+                            <th style="width: 50%;">缺点 ✗</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>用户免费使用，获客成本低，快速积累用户规模</td>
+                            <td>过度依赖广告收入，经济周期波动影响大，抗风险能力弱</td>
+                        </tr>
+                        <tr>
+                            <td>规模化能力强，用户越多广告展示机会越多，收入越高</td>
+                            <td>用户体验与广告存在天然矛盾，广告过多会损害用户体验</td>
+                        </tr>
+                        <tr>
+                            <td>可结合大数据和AI实现精准广告投放，提高转化率和ROI</td>
+                            <td>需要庞大的用户基数才能实现盈利，前期投入巨大</td>
+                        </tr>
+                        <tr>
+                            <td>边际成本几乎为零，增加用户不会显著增加成本</td>
+                            <td>隐私保护要求越来越高，监管风险增加，如GDPR等法规限制</td>
+                        </tr>
+                        <tr>
+                            <td>网络效应强，用户基数大形成正反馈循环</td>
+                            <td>广告拦截技术普及，影响广告投放效果</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>广告计费模式对比</h2>
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="showTab('cpc')">CPC</button>
+                        <button class="tab-btn" onclick="showTab('cpm')">CPM</button>
+                        <button class="tab-btn" onclick="showTab('cps')">CPS</button>
+                    </div>
+                    <div id="cpc" class="tab-content active">
+                        <h4>CPC (Cost Per Click) - 按点击付费</h4>
+                        <p><strong>定义：</strong>广告主仅为用户点击广告的行为付费</p>
+                        <p><strong>适用：</strong>追求流量和转化的品牌</p>
+                        <p><strong>优点：</strong>风险低，效果可量化</p>
+                    </div>
+                    <div id="cpm" class="tab-content">
+                        <h4>CPM (Cost Per Mille) - 按千次展示付费</h4>
+                        <p><strong>定义：</strong>广告主为每1000次广告展示付费</p>
+                        <p><strong>适用：</strong>品牌曝光为主的活动</p>
+                        <p><strong>优点：</strong>曝光量大，适合品牌建设</p>
+                    </div>
+                    <div id="cps" class="tab-content">
+                        <h4>CPS (Cost Per Sale) - 按销售付费</h4>
+                        <p><strong>定义：</strong>广告主仅为实际产生的销售额付费</p>
+                        <p><strong>适用：</strong>电商、直接销售类广告</p>
+                        <p><strong>优点：</strong>转化导向，广告主风险最低</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>核心成功要素</h2>
+                <div class="highlight-box">
+                    <h4>广告模式成功的关键要素</h4>
+                    <div class="mermaid">
+                    graph TD
+                        A[广告模式成功要素] --> B[用户规模]
+                        A --> C[数据能力]
+                        A --> D[技术实力]
+                        A --> E[广告产品]
+                        
+                        B --> B1[海量用户基础]
+                        B --> B2[高用户活跃度]
+                        
+                        C --> C1[用户画像精准度]
+                        C --> C2[行为数据分析]
+                        
+                        D --> D1[广告投放系统]
+                        D --> D2[实时竞价能力]
+                        
+                        E --> E1[多样广告形式]
+                        E --> E2[精准定向技术]
+                        
+                        style A fill:#667eea,color:#fff
+                        style B fill:#27ae60,color:#fff
+                        style C fill:#3498db,color:#fff
+                        style D fill:#e67e22,color:#fff
+                        style E fill:#9b59b6,color:#fff
+                    </div>
+                </div>
             </div>
             </div>
         </main>
     </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                diagramMarginX: 50,
+                actorMargin: 50,
+                boxMargin: 10
+            }
+        });
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>

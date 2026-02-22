@@ -4,275 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生态闭环模式 - 互联网商业模式</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .main-container {
-            display: flex;
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 20px;
-            gap: 20px;
-        }
-
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
-        }
-
-        .sidebar-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .sidebar-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
-            font-weight: bold;
-        }
-
-        .nav-tree {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 5px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            color: #555;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .nav-link:hover {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .nav-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .nav-link.active .nav-number {
-            background: white;
-            color: #667eea;
-        }
-
-        .content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            opacity: 0.9;
-            transition: opacity 0.3s;
-        }
-
-        .back-link:hover {
-            opacity: 1;
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .header {
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 25px;
-            margin-bottom: 35px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .header .number {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 50px;
-            font-weight: bold;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
-        .header .description {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            margin-top: 15px;
-        }
-
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .section h2 {
-            font-size: 1.6rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-left: 15px;
-            border-left: 5px solid #667eea;
-        }
-
-        .section p {
-            color: #555;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-        }
-
-        .examples-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #3498db;
-            margin-top: 20px;
-        }
-
-        .examples-box h3 {
-            color: #2c3e50;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-
-        .examples-box p {
-            color: #3498db;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        .pros-section ul,
-        .cons-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .pros-section li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
-        }
-
-        .pros-section li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-
-        .cons-section li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
-        }
-
-        .cons-section li::before {
-            content: '✗';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-
-        @media (max-width: 1200px) {
-            .sidebar {
-                position: relative;
-                top: 0;
-                max-height: none;
-                width: 100%;
-            }
-
-            .main-container {
-                flex-direction: column;
-            }
-
-            .nav-tree {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                padding: 30px 20px;
-            }
-
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .header .description {
-                font-size: 1rem;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; line-height: 1.8; color: #333; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .main-container { display: flex; max-width: 1600px; margin: 0 auto; padding: 20px; gap: 20px; }
+        .sidebar { width: 280px; flex-shrink: 0; position: sticky; top: 20px; height: fit-content; max-height: calc(100vh - 40px); overflow-y: auto; }
+        .sidebar-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .sidebar-title { font-size: 1.3rem; color: #2c3e50; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 3px solid #667eea; font-weight: bold; }
+        .nav-tree { list-style: none; }
+        .nav-item { margin-bottom: 5px; }
+        .nav-link { display: flex; align-items: center; padding: 10px 15px; color: #555; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; font-size: 0.95rem; }
+        .nav-link:hover { background: linear-gradient(135deg, #667eea15, #764ba215); color: #667eea; transform: translateX(5px); }
+        .nav-link.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .nav-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 50%; font-size: 0.8rem; font-weight: bold; margin-right: 12px; flex-shrink: 0; }
+        .nav-link.active .nav-number { background: white; color: #667eea; }
+        .content { flex: 1; min-width: 0; }
+        .back-link { display: inline-block; color: white; text-decoration: none; margin-bottom: 20px; font-size: 1rem; opacity: 0.9; }
+        .card { background: white; border-radius: 16px; padding: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .header { border-bottom: 3px solid #667eea; padding-bottom: 25px; margin-bottom: 35px; }
+        .header h1 { font-size: 2.5rem; color: #2c3e50; margin-bottom: 10px; }
+        .header .number { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 50px; height: 50px; border-radius: 50%; text-align: center; line-height: 50px; font-weight: bold; font-size: 1.4rem; margin-bottom: 15px; }
+        .header .description { color: #7f8c8d; font-size: 1.2rem; margin-top: 15px; }
+        .section { margin-bottom: 40px; }
+        .section h2 { font-size: 1.6rem; color: #2c3e50; margin-bottom: 20px; padding-left: 15px; border-left: 5px solid #667eea; }
+        .section p { color: #555; margin-bottom: 15px; font-size: 1.05rem; }
+        .examples-box { background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #3498db; margin-top: 20px; }
+        .examples-box h3 { color: #2c3e50; margin-bottom: 12px; font-size: 1.2rem; }
+        .examples-box p { color: #3498db; font-weight: 500; margin: 0; }
+        .diagram-container { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .diagram-container h3 { color: #2c3e50; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .mermaid { display: flex; justify-content: center; background: white; padding: 20px; border-radius: 8px; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .comparison-table th, .comparison-table td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #eee; }
+        .comparison-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-weight: bold; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table tr:hover { background: #f8f9fa; }
+        @media (max-width: 1200px) { .sidebar { position: relative; top: 0; width: 100%; } .main-container { flex-direction: column; } .nav-tree { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; } }
+        @media (max-width: 768px) { .card { padding: 30px 20px; } .header h1 { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
@@ -281,145 +50,78 @@
             <div class="sidebar-card">
                 <div class="sidebar-title">商业模式导航</div>
                 <ul class="nav-tree">
-                    <li class="nav-item">
-                        <a href="01-advertising.html" class="nav-link">
-                            <span class="nav-number">1</span>
-                            <span>广告模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="02-commission.html" class="nav-link">
-                            <span class="nav-number">2</span>
-                            <span>平台佣金模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="03-subscription.html" class="nav-link">
-                            <span class="nav-number">3</span>
-                            <span>订阅模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="04-freemium.html" class="nav-link">
-                            <span class="nav-number">4</span>
-                            <span>免费增值模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="05-transaction-fee.html" class="nav-link">
-                            <span class="nav-number">5</span>
-                            <span>交易手续费模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="06-cloud-service.html" class="nav-link">
-                            <span class="nav-number">6</span>
-                            <span>云服务模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="07-content-payment.html" class="nav-link">
-                            <span class="nav-number">7</span>
-                            <span>内容付费/知识付费</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="08-ecosystem.html" class="nav-link active">
-                            <span class="nav-number">8</span>
-                            <span>生态闭环模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="09-data-monetization.html" class="nav-link">
-                            <span class="nav-number">9</span>
-                            <span>数据变现模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="10-gaming.html" class="nav-link">
-                            <span class="nav-number">10</span>
-                            <span>游戏模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="11-live-streaming.html" class="nav-link">
-                            <span class="nav-number">11</span>
-                            <span>直播/打赏模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="12-sharing-economy.html" class="nav-link">
-                    </li>
-                    <li class="nav-item">
-                        <a href="new-companies-analysis.html" class="nav-link">
-                            <span class="nav-number">13</span>
-                            <span>新公司分析</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="domestic-companies.html" class="nav-link">
-                            <span class="nav-number">14</span>
-                            <span>国内公司分析</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="state-owned-companies.html" class="nav-link">
-                            <span class="nav-number">15</span>
-                            <span>国有企业分析</span>
-                        </a>
-                    </li>
-                            <span class="nav-number">12</span>
-                            <span>共享经济模式</span>
-                        </a>
-                    </li>
+                    <li class="nav-item"><a href="01-advertising.html" class="nav-link"><span class="nav-number">1</span>广告模式</a></li>
+                    <li class="nav-item"><a href="02-commission.html" class="nav-link"><span class="nav-number">2</span>平台佣金模式</a></li>
+                    <li class="nav-item"><a href="03-subscription.html" class="nav-link"><span class="nav-number">3</span>订阅模式</a></li>
+                    <li class="nav-item"><a href="04-freemium.html" class="nav-link"><span class="nav-number">4</span>免费增值模式</a></li>
+                    <li class="nav-item"><a href="05-transaction-fee.html" class="nav-link"><span class="nav-number">5</span>交易手续费模式</a></li>
+                    <li class="nav-item"><a href="06-cloud-service.html" class="nav-link"><span class="nav-number">6</span>云服务模式</a></li>
+                    <li class="nav-item"><a href="07-content-payment.html" class="nav-link"><span class="nav-number">7</span>内容付费/知识付费</a></li>
+                    <li class="nav-item"><a href="08-ecosystem.html" class="nav-link active"><span class="nav-number">8</span>生态闭环模式</a></li>
+                    <li class="nav-item"><a href="09-data-monetization.html" class="nav-link"><span class="nav-number">9</span>数据变现模式</a></li>
+                    <li class="nav-item"><a href="10-gaming.html" class="nav-link"><span class="nav-number">10</span>游戏模式</a></li>
+                    <li class="nav-item"><a href="11-live-streaming.html" class="nav-link"><span class="nav-number">11</span>直播/打赏模式</a></li>
+                    <li class="nav-item"><a href="12-sharing-economy.html" class="nav-link"><span class="nav-number">12</span>共享经济模式</a></li>
+                    <li class="nav-item"><a href="new-companies-analysis.html" class="nav-link"><span class="nav-number">13</span>新公司分析</a></li>
+                    <li class="nav-item"><a href="domestic-companies.html" class="nav-link"><span class="nav-number">14</span>国内公司分析</a></li>
+                    <li class="nav-item"><a href="state-owned-companies.html" class="nav-link"><span class="nav-number">15</span>国有企业分析</a></li>
                 </ul>
             </div>
         </aside>
-
         <main class="content">
             <a href="index.html" class="back-link">← 返回首页</a>
-
             <div class="card">
-            <div class="header">
-                <span class="number">8</span>
-                <h1>生态闭环模式</h1>
-                <p class="description">硬件 + 软件 + 服务深度绑定</p>
-            </div>
-
-            <div class="section">
-                <h2>核心原理</h2>
-                <p>通过硬件终端获取用户，再通过软件和服务锁定用户，形成难以脱离的生态系统。用户在生态中的所有活动都为公司创造价值，实现多点盈利。</p>
-                <p>生态闭环通过相互关联的产品和服务，将用户牢牢锁定在生态内。比如苹果的iPhone、Mac、iPad、Apple Watch等设备通过iCloud、App Store、Apple Music等服务互联互通，一旦用户进入生态，离开的成本极高。</p>
-            </div>
-
-            <div class="examples-box">
-                <h3>典型案例</h3>
-                <p>Apple、小米、华为</p>
-            </div>
-
-            <div class="section pros-section">
-                <h2>优势</h2>
-                <ul>
-                    <li>用户粘性极高，转换成本巨大</li>
-                    <li>可以交叉销售多种产品</li>
-                    <li>数据全面，可提供个性化服务</li>
-                    <li>品牌溢价能力强</li>
-                    <li>抗风险能力强，多点盈利</li>
-                </ul>
-            </div>
-
-            <div class="section cons-section">
-                <h2>缺点</h2>
-                <ul>
-                    <li>构建生态需要巨额投入和时间</li>
-                    <li>开放性问题，可能被质疑封闭</li>
-                    <li>单点失败可能影响整个生态</li>
-                    <li>创新压力大，需要持续迭代</li>
-                    <li>需要强大的供应链和产品能力</li>
-                </ul>
-            </div>
+                <div class="header"><span class="number">8</span><h1>生态闭环模式</h1><p class="description">硬件 + 软件 + 服务深度绑定</p></div>
+                <div class="section"><h2>核心原理</h2><p>通过硬件设备、操作系统、应用商店、服务体系形成完整闭环，用户被锁定在生态系统内难以脱离。多种产品和服务相互促进，形成强大的网络效应和用户粘性。</p></div>
+                <div class="examples-box"><h3>典型案例</h3><p>Apple、小米、华为</p></div>
+                <div class="section"><h2>生态闭环架构</h2>
+                    <div class="diagram-container"><h3>生态系统架构</h3>
+                        <div class="mermaid">graph TB
+                            H[硬件] --> S[软件/系统]
+                            S --> A[应用生态]
+                            A --> Se[服务]
+                            Se --> D[数据]
+                            D --> H
+                            H -->|用户| U[用户]
+                            style H fill:#667eea,color:#fff
+                            style S fill:#27ae60,color:#fff
+                            style A fill:#3498db,color:#fff
+                            style Se fill:#e67e22,color:#fff
+                        </div>
+                    </div>
+                </div>
+                <div class="section"><h2>用户交互流程</h2>
+                    <div class="diagram-container"><h3>生态用户旅程</h3>
+                        <div class="mermaid">sequenceDiagram
+                            participant 用户
+                            participant 硬件
+                            participant 软件
+                            participant 服务
+                            用户->>硬件: 购买设备
+                            硬件->>软件: 激活系统
+                            软件->>服务: 登录账号
+                            服务->>软件: 同步数据
+                            软件->>硬件: 体验增值
+                            服务->>用户: 推荐更多产品
+                            用户->>硬件: 复购/推荐
+                        </div>
+                    </div>
+                </div>
+                <div class="section"><h2>优势 vs 缺点对比</h2>
+                    <table class="comparison-table">
+                        <thead><tr><th style="width:50%">优势 ✓</th><th style="width:50%">缺点 ✗</th></tr></thead>
+                        <tbody>
+                            <tr><td>用户粘性极强，迁移成本高</td><td>投入巨大，周期长</td></tr>
+                            <tr><td>多产品协同效应</td><td>单一产品失败可能影响整体</td></tr>
+                            <tr><td>数据互通提升体验</td><td>创新受限，生态可能固化</td></tr>
+                            <tr><td>品牌溢价能力强</td><td>供应链管理复杂</td></tr>
+                            <tr><td>可复制性低，护城河深</td><td>监管反垄断风险</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
+    <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </body>
 </html>

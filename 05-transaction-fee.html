@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>交易手续费模式 - 互联网商业模式</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -199,46 +200,105 @@
             margin: 0;
         }
 
-        .pros-section ul,
-        .cons-section ul {
-            list-style: none;
-            padding-left: 0;
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .pros-section li {
-            padding-left: 35px;
-            position: relative;
+        .diagram-container h3 {
+            color: #2c3e50;
             margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
+            font-size: 1.2rem;
+            text-align: center;
         }
 
-        .pros-section li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #27ae60;
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
 
-        .cons-section li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .fee-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .fee-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .fee-card h5 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .fee-card p {
+            font-size: 0.95rem;
             color: #555;
+            margin: 0;
         }
 
-        .cons-section li::before {
-            content: '✗';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 1.3rem;
+        .revenue-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .flow-box {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #667eea;
         }
 
         @media (max-width: 1200px) {
@@ -258,6 +318,15 @@
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 10px;
             }
+
+            .revenue-flow {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
         }
 
         @media (max-width: 768px) {
@@ -271,6 +340,15 @@
 
             .header .description {
                 font-size: 1rem;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
             }
         }
     </style>
@@ -349,6 +427,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="12-sharing-economy.html" class="nav-link">
+                            <span class="nav-number">12</span>
+                            <span>共享经济模式</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="new-companies-analysis.html" class="nav-link">
@@ -366,10 +447,6 @@
                         <a href="state-owned-companies.html" class="nav-link">
                             <span class="nav-number">15</span>
                             <span>国有企业分析</span>
-                        </a>
-                    </li>
-                            <span class="nav-number">12</span>
-                            <span>共享经济模式</span>
                         </a>
                     </li>
                 </ul>
@@ -397,29 +474,177 @@
                 <p>PayPal、Stripe、支付宝、微信支付</p>
             </div>
 
-            <div class="section pros-section">
-                <h2>优势</h2>
-                <ul>
-                    <li>收入随经济发展自然增长，经济越好交易越频繁</li>
-                    <li>现金流充裕，资金沉淀可产生收益</li>
-                    <li>进入壁垒高，需要牌照和资质</li>
-                    <li>网络效应和转换成本强</li>
-                    <li>用户使用频率高，粘性强</li>
-                </ul>
+            <div class="section">
+                <h2>支付交易流程</h2>
+                <div class="diagram-container">
+                    <h3>支付交易核心流程</h3>
+                    <div class="mermaid">
+                    graph LR
+                        A[买家] --> B[发起支付]
+                        B --> C{支付方式}
+                        C -->|银行卡| D[银行通道]
+                        C -->|第三方| E[支付平台]
+                        C -->|数字货币| F[区块链]
+                        
+                        D --> G[支付网关]
+                        E --> G
+                        F --> G
+                        
+                        G --> H[风控审核]
+                        H --> I{审核结果}
+                        I -->|通过| J[清算中心]
+                        I -->|拒绝| K[支付失败]
+                        
+                        J --> L[资金清算]
+                        L --> M[卖家账户]
+                        L --> N[平台手续费]
+                        M --> O[交易完成]
+                        
+                        style A fill:#e8f5e9
+                        style N fill:#e3f2fd
+                        style O fill:#fff3e0
+                    </div>
+                </div>
             </div>
 
-            <div class="section cons-section">
-                <h2>缺点</h2>
-                <ul>
-                    <li>高度依赖监管政策，合规成本高</li>
-                    <li>费率受到行业竞争压力</li>
-                    <li>欺诈风险和资金安全问题</li>
-                    <li>金融监管严格，业务创新受限</li>
-                    <li>需要大量技术和安全投入</li>
-                </ul>
+            <div class="section">
+                <h2>资金流转</h2>
+                <div class="diagram-container">
+                    <h3>交易资金流转序列图</h3>
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant 买家
+                        participant 支付平台
+                        participant 银行
+                        participant 清算中心
+                        participant 卖家
+                        
+                        Note over 买家,支付平台: 支付请求
+                        买家->>支付平台: 发起支付
+                        支付平台->>银行: 验证支付渠道
+                        银行->>支付平台: 验证成功
+                        
+                        Note over 支付平台,清算中心: 资金处理
+                        支付平台->>支付平台: 冻结资金
+                        支付平台->>清算中心: 提交清算
+                        清算中心->>清算中心: 资金清算
+                        
+                        Note over 清算中心,卖家: 资金结算
+                        清算中心->>卖家: 结算资金(扣除手续费)
+                        清算中心->>支付平台: 收取手续费
+                        
+                        Note over 买家,卖家: 交易完成
+                        支付平台->>买家: 支付成功
+                        支付平台->>卖家: 到账通知
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>手续费类型</h2>
+                <div class="fee-types">
+                    <div class="fee-card">
+                        <h5>按比例收费</h5>
+                        <p>按交易金额的固定比例收取（如1%-3%）</p>
+                    </div>
+                    <div class="fee-card">
+                        <h5>固定金额</h5>
+                        <p>每笔交易收取固定费用（如每笔0.5元）</p>
+                    </div>
+                    <div class="fee-card">
+                        <h5>混合模式</h5>
+                        <p>固定金额+按比例（如0.1元+0.5%）</p>
+                    </div>
+                    <div class="fee-card">
+                        <h5>阶梯费率</h5>
+                        <p>交易量越大，费率越低</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>收入来源</h2>
+                <div class="diagram-container">
+                    <h3>支付平台收入构成</h3>
+                    <div class="mermaid">
+                    graph TD
+                        A[支付平台收入] --> B[交易手续费]
+                        A --> C[增值服务]
+                        A --> D[资金收益]
+                        A --> E[其他收入]
+                        
+                        B --> B1[商户手续费]
+                        B --> B2[通道费]
+                        
+                        C --> C1[风控服务]
+                        C --> C2[数据服务]
+                        C --> C3[营销服务]
+                        
+                        D --> D1[利息收入]
+                        D --> D2[投资收入]
+                        
+                        E --> E1[广告收入]
+                        E --> E2[增值功能]
+                        
+                        style A fill:#667eea,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>优势 vs 缺点对比</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">优势 ✓</th>
+                            <th style="width: 50%;">缺点 ✗</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>收入随经济发展自然增长，经济越好交易越频繁</td>
+                            <td>高度依赖监管政策，合规成本高</td>
+                        </tr>
+                        <tr>
+                            <td>现金流充裕，资金沉淀可产生收益</td>
+                            <td>费率受到行业竞争压力</td>
+                        </tr>
+                        <tr>
+                            <td>进入壁垒高，需要牌照和资质</td>
+                            <td>欺诈风险和资金安全问题</td>
+                        </tr>
+                        <tr>
+                            <td>网络效应和转换成本强</td>
+                            <td>金融监管严格，业务创新受限</td>
+                        </tr>
+                        <tr>
+                            <td>用户使用频率高，粘性强</td>
+                            <td>需要大量技术和安全投入</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             </div>
         </main>
     </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                diagramMarginX: 50,
+                actorMargin: 50,
+                boxMargin: 10
+            }
+        });
+    </script>
 </body>
 </html>

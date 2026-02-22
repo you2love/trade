@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>免费增值模式 - 互联网商业模式</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -199,46 +200,118 @@
             margin: 0;
         }
 
-        .pros-section ul,
-        .cons-section ul {
-            list-style: none;
-            padding-left: 0;
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .pros-section li {
-            padding-left: 35px;
-            position: relative;
+        .diagram-container h3 {
+            color: #2c3e50;
             margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
+            font-size: 1.2rem;
+            text-align: center;
         }
 
-        .pros-section li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #27ae60;
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
 
-        .cons-section li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
+        .comparison-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .cons-section li::before {
-            content: '✗';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #e74c3c;
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .funnel-container {
+            margin: 20px 0;
+        }
+
+        .funnel-stage {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .funnel-bar {
+            height: 40px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .funnel-label {
+            width: 150px;
             font-weight: bold;
-            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+
+        .funnel-value {
+            font-weight: bold;
+        }
+
+        .limit-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .limit-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+        }
+
+        .limit-card h5 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .limit-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 0;
         }
 
         @media (max-width: 1200px) {
@@ -271,6 +344,20 @@
 
             .header .description {
                 font-size: 1rem;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
+
+            .funnel-label {
+                width: 100px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -349,6 +436,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="12-sharing-economy.html" class="nav-link">
+                            <span class="nav-number">12</span>
+                            <span>共享经济模式</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="new-companies-analysis.html" class="nav-link">
@@ -366,10 +456,6 @@
                         <a href="state-owned-companies.html" class="nav-link">
                             <span class="nav-number">15</span>
                             <span>国有企业分析</span>
-                        </a>
-                    </li>
-                            <span class="nav-number">12</span>
-                            <span>共享经济模式</span>
                         </a>
                     </li>
                 </ul>
@@ -397,29 +483,186 @@
                 <p>Dropbox、Slack、Canva、Notion</p>
             </div>
 
-            <div class="section pros-section">
-                <h2>优势</h2>
-                <ul>
-                    <li>免费获客，降低营销成本</li>
-                    <li>用户可以先体验再决定付费，降低决策门槛</li>
-                    <li>免费用户形成网络效应和口碑传播</li>
-                    <li>可以大规模测试产品功能，快速迭代优化</li>
-                    <li>免费用户可以作为病毒式传播的节点</li>
-                </ul>
+            <div class="section">
+                <h2>用户转化漏斗</h2>
+                <div class="diagram-container">
+                    <h3>免费增值模式用户转化流程</h3>
+                    <div class="mermaid">
+                    graph TD
+                        A[免费用户] --> B[注册使用]
+                        B --> C{体验价值}
+                        C -->|满意| D[深度使用]
+                        C -->|不满意| E[流失]
+                        
+                        D --> F{付费门槛}
+                        F -->|达到| G[升级付费]
+                        F -->|未达到| H[继续免费]
+                        
+                        G --> I[付费用户]
+                        H --> I
+                        I --> J[持续付费]
+                        J --> K{续订?}
+                        K -->|是| J
+                        K -->|否| L[降级/流失]
+                        
+                        A -.-> M[口碑传播]
+                        M --> A
+                        
+                        style A fill:#e8f5e9
+                        style G fill:#e3f2fd
+                        style I fill:#fff3e0
+                        style E fill:#ffebee
+                        style L fill:#ffebee
+                    </div>
+                </div>
             </div>
 
-            <div class="section cons-section">
-                <h2>缺点</h2>
-                <ul>
-                    <li>转化率通常较低（2%-5%）</li>
-                    <li>免费用户产生成本但无收入</li>
-                    <li>免费与付费的边界难以平衡</li>
-                    <li>容易被竞争对手模仿</li>
-                    <li>过度免费可能降低付费意愿</li>
-                </ul>
+            <div class="section">
+                <h2>用户交互流程</h2>
+                <div class="diagram-container">
+                    <h3>免费增值服务序列图</h3>
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant 用户
+                        participant 平台
+                        participant 支付系统
+                        
+                        Note over 用户,平台: 免费阶段
+                        用户->>平台: 注册账号
+                        平台->>用户: 提供免费功能
+                        用户->>平台: 使用基础功能
+                        
+                        Note over 用户,平台: 价值体验
+                        loop 使用过程中
+                            用户->>平台: 遇到功能限制
+                            平台->>用户: 提示升级解锁
+                            用户->>平台: 评估付费价值
+                        end
+                        
+                        Note over 用户,平台: 转化付费
+                        用户->>平台: 选择升级
+                        平台->>支付系统: 发起扣款
+                        支付系统->>平台: 扣款成功
+                        平台->>用户: 开通高级功能
+                        
+                        Note over 用户,平台: 持续服务
+                        用户->>平台: 使用高级功能
+                        平台->>平台: 记录使用偏好
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>常见限制类型</h2>
+                <div class="limit-types">
+                    <div class="limit-card">
+                        <h5>功能限制</h5>
+                        <p>高级功能仅付费用户可用，如高级分析、自定义模板等</p>
+                    </div>
+                    <div class="limit-card">
+                        <h5>容量限制</h5>
+                        <p>限制存储空间、上传文件大小、使用流量等</p>
+                    </div>
+                    <div class="limit-card">
+                        <h5>次数限制</h5>
+                        <p>限制每日/每周使用次数，如翻译次数、导出次数等</p>
+                    </div>
+                    <div class="limit-card">
+                        <h5>时间限制</h5>
+                        <p>免费试用期后功能受限，或限时功能体验</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>转化漏斗数据</h2>
+                <div class="diagram-container">
+                    <div class="funnel-stage">
+                        <div class="funnel-label">注册用户</div>
+                        <div class="funnel-bar" style="width: 100%;">
+                            <span>100%</span>
+                            <span class="funnel-value">10,000</span>
+                        </div>
+                    </div>
+                    <div class="funnel-stage">
+                        <div class="funnel-label">活跃用户</div>
+                        <div class="funnel-bar" style="width: 60%;">
+                            <span>60%</span>
+                            <span class="funnel-value">6,000</span>
+                        </div>
+                    </div>
+                    <div class="funnel-stage">
+                        <div class="funnel-label">深度用户</div>
+                        <div class="funnel-bar" style="width: 25%;">
+                            <span>25%</span>
+                            <span class="funnel-value">2,500</span>
+                        </div>
+                    </div>
+                    <div class="funnel-stage">
+                        <div class="funnel-label">付费用户</div>
+                        <div class="funnel-bar" style="width: 5%;">
+                            <span>5%</span>
+                            <span class="funnel-value">500</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; color: #7f8c8d; margin-top: 15px;">典型Freemium模式转化率通常在2%-5%之间</p>
+            </div>
+
+            <div class="section">
+                <h2>优势 vs 缺点对比</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">优势 ✓</th>
+                            <th style="width: 50%;">缺点 ✗</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>免费获客，降低营销成本</td>
+                            <td>转化率通常较低（2%-5%）</td>
+                        </tr>
+                        <tr>
+                            <td>用户可以先体验再决定付费，降低决策门槛</td>
+                            <td>免费用户产生成本但无收入</td>
+                        </tr>
+                        <tr>
+                            <td>免费用户形成网络效应和口碑传播</td>
+                            <td>免费与付费的边界难以平衡</td>
+                        </tr>
+                        <tr>
+                            <td>可以大规模测试产品功能，快速迭代优化</td>
+                            <td>容易被竞争对手模仿</td>
+                        </tr>
+                        <tr>
+                            <td>免费用户可以作为病毒式传播的节点</td>
+                            <td>过度免费可能降低付费意愿</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             </div>
         </main>
     </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                diagramMarginX: 50,
+                actorMargin: 50,
+                boxMargin: 10
+            }
+        });
+    </script>
 </body>
 </html>

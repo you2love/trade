@@ -4,275 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>云服务模式 - 互联网商业模式</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .main-container {
-            display: flex;
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 20px;
-            gap: 20px;
-        }
-
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
-        }
-
-        .sidebar-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .sidebar-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
-            font-weight: bold;
-        }
-
-        .nav-tree {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 5px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            color: #555;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .nav-link:hover {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .nav-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .nav-link.active .nav-number {
-            background: white;
-            color: #667eea;
-        }
-
-        .content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            opacity: 0.9;
-            transition: opacity 0.3s;
-        }
-
-        .back-link:hover {
-            opacity: 1;
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .header {
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 25px;
-            margin-bottom: 35px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .header .number {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 50px;
-            font-weight: bold;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
-        .header .description {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            margin-top: 15px;
-        }
-
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .section h2 {
-            font-size: 1.6rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-left: 15px;
-            border-left: 5px solid #667eea;
-        }
-
-        .section p {
-            color: #555;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-        }
-
-        .examples-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #3498db;
-            margin-top: 20px;
-        }
-
-        .examples-box h3 {
-            color: #2c3e50;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-
-        .examples-box p {
-            color: #3498db;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        .pros-section ul,
-        .cons-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .pros-section li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
-        }
-
-        .pros-section li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-
-        .cons-section li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: #555;
-        }
-
-        .cons-section li::before {
-            content: '✗';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-
-        @media (max-width: 1200px) {
-            .sidebar {
-                position: relative;
-                top: 0;
-                max-height: none;
-                width: 100%;
-            }
-
-            .main-container {
-                flex-direction: column;
-            }
-
-            .nav-tree {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                padding: 30px 20px;
-            }
-
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .header .description {
-                font-size: 1rem;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; line-height: 1.8; color: #333; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .main-container { display: flex; max-width: 1600px; margin: 0 auto; padding: 20px; gap: 20px; }
+        .sidebar { width: 280px; flex-shrink: 0; position: sticky; top: 20px; height: fit-content; max-height: calc(100vh - 40px); overflow-y: auto; }
+        .sidebar-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .sidebar-title { font-size: 1.3rem; color: #2c3e50; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 3px solid #667eea; font-weight: bold; }
+        .nav-tree { list-style: none; }
+        .nav-item { margin-bottom: 5px; }
+        .nav-link { display: flex; align-items: center; padding: 10px 15px; color: #555; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; font-size: 0.95rem; }
+        .nav-link:hover { background: linear-gradient(135deg, #667eea15, #764ba215); color: #667eea; transform: translateX(5px); }
+        .nav-link.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .nav-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 50%; font-size: 0.8rem; font-weight: bold; margin-right: 12px; flex-shrink: 0; }
+        .nav-link.active .nav-number { background: white; color: #667eea; }
+        .content { flex: 1; min-width: 0; }
+        .back-link { display: inline-block; color: white; text-decoration: none; margin-bottom: 20px; font-size: 1rem; opacity: 0.9; }
+        .card { background: white; border-radius: 16px; padding: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .header { border-bottom: 3px solid #667eea; padding-bottom: 25px; margin-bottom: 35px; }
+        .header h1 { font-size: 2.5rem; color: #2c3e50; margin-bottom: 10px; }
+        .header .number { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 50px; height: 50px; border-radius: 50%; text-align: center; line-height: 50px; font-weight: bold; font-size: 1.4rem; margin-bottom: 15px; }
+        .header .description { color: #7f8c8d; font-size: 1.2rem; margin-top: 15px; }
+        .section { margin-bottom: 40px; }
+        .section h2 { font-size: 1.6rem; color: #2c3e50; margin-bottom: 20px; padding-left: 15px; border-left: 5px solid #667eea; }
+        .section p { color: #555; margin-bottom: 15px; font-size: 1.05rem; }
+        .examples-box { background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #3498db; margin-top: 20px; }
+        .examples-box h3 { color: #2c3e50; margin-bottom: 12px; font-size: 1.2rem; }
+        .examples-box p { color: #3498db; font-weight: 500; margin: 0; }
+        .diagram-container { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .diagram-container h3 { color: #2c3e50; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .mermaid { display: flex; justify-content: center; background: white; padding: 20px; border-radius: 8px; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .comparison-table th, .comparison-table td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #eee; }
+        .comparison-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-weight: bold; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table tr:hover { background: #f8f9fa; }
+        .service-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+        .service-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+        .service-card h5 { color: #667eea; margin-bottom: 8px; }
+        .service-card p { font-size: 0.9rem; color: #555; margin: 0; }
+        @media (max-width: 1200px) { .sidebar { position: relative; top: 0; width: 100%; } .main-container { flex-direction: column; } .nav-tree { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; } }
+        @media (max-width: 768px) { .card { padding: 30px 20px; } .header h1 { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
@@ -281,145 +54,91 @@
             <div class="sidebar-card">
                 <div class="sidebar-title">商业模式导航</div>
                 <ul class="nav-tree">
-                    <li class="nav-item">
-                        <a href="01-advertising.html" class="nav-link">
-                            <span class="nav-number">1</span>
-                            <span>广告模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="02-commission.html" class="nav-link">
-                            <span class="nav-number">2</span>
-                            <span>平台佣金模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="03-subscription.html" class="nav-link">
-                            <span class="nav-number">3</span>
-                            <span>订阅模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="04-freemium.html" class="nav-link">
-                            <span class="nav-number">4</span>
-                            <span>免费增值模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="05-transaction-fee.html" class="nav-link">
-                            <span class="nav-number">5</span>
-                            <span>交易手续费模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="06-cloud-service.html" class="nav-link active">
-                            <span class="nav-number">6</span>
-                            <span>云服务模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="07-content-payment.html" class="nav-link">
-                            <span class="nav-number">7</span>
-                            <span>内容付费/知识付费</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="08-ecosystem.html" class="nav-link">
-                            <span class="nav-number">8</span>
-                            <span>生态闭环模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="09-data-monetization.html" class="nav-link">
-                            <span class="nav-number">9</span>
-                            <span>数据变现模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="10-gaming.html" class="nav-link">
-                            <span class="nav-number">10</span>
-                            <span>游戏模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="11-live-streaming.html" class="nav-link">
-                            <span class="nav-number">11</span>
-                            <span>直播/打赏模式</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="12-sharing-economy.html" class="nav-link">
-                    </li>
-                    <li class="nav-item">
-                        <a href="new-companies-analysis.html" class="nav-link">
-                            <span class="nav-number">13</span>
-                            <span>新公司分析</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="domestic-companies.html" class="nav-link">
-                            <span class="nav-number">14</span>
-                            <span>国内公司分析</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="state-owned-companies.html" class="nav-link">
-                            <span class="nav-number">15</span>
-                            <span>国有企业分析</span>
-                        </a>
-                    </li>
-                            <span class="nav-number">12</span>
-                            <span>共享经济模式</span>
-                        </a>
-                    </li>
+                    <li class="nav-item"><a href="01-advertising.html" class="nav-link"><span class="nav-number">1</span>广告模式</a></li>
+                    <li class="nav-item"><a href="02-commission.html" class="nav-link"><span class="nav-number">2</span>平台佣金模式</a></li>
+                    <li class="nav-item"><a href="03-subscription.html" class="nav-link"><span class="nav-number">3</span>订阅模式</a></li>
+                    <li class="nav-item"><a href="04-freemium.html" class="nav-link"><span class="nav-number">4</span>免费增值模式</a></li>
+                    <li class="nav-item"><a href="05-transaction-fee.html" class="nav-link"><span class="nav-number">5</span>交易手续费模式</a></li>
+                    <li class="nav-item"><a href="06-cloud-service.html" class="nav-link active"><span class="nav-number">6</span>云服务模式</a></li>
+                    <li class="nav-item"><a href="07-content-payment.html" class="nav-link"><span class="nav-number">7</span>内容付费/知识付费</a></li>
+                    <li class="nav-item"><a href="08-ecosystem.html" class="nav-link"><span class="nav-number">8</span>生态闭环模式</a></li>
+                    <li class="nav-item"><a href="09-data-monetization.html" class="nav-link"><span class="nav-number">9</span>数据变现模式</a></li>
+                    <li class="nav-item"><a href="10-gaming.html" class="nav-link"><span class="nav-number">10</span>游戏模式</a></li>
+                    <li class="nav-item"><a href="11-live-streaming.html" class="nav-link"><span class="nav-number">11</span>直播/打赏模式</a></li>
+                    <li class="nav-item"><a href="12-sharing-economy.html" class="nav-link"><span class="nav-number">12</span>共享经济模式</a></li>
+                    <li class="nav-item"><a href="new-companies-analysis.html" class="nav-link"><span class="nav-number">13</span>新公司分析</a></li>
+                    <li class="nav-item"><a href="domestic-companies.html" class="nav-link"><span class="nav-number">14</span>国内公司分析</a></li>
+                    <li class="nav-item"><a href="state-owned-companies.html" class="nav-link"><span class="nav-number">15</span>国有企业分析</a></li>
                 </ul>
             </div>
         </aside>
-
         <main class="content">
             <a href="index.html" class="back-link">← 返回首页</a>
-
             <div class="card">
-            <div class="header">
-                <span class="number">6</span>
-                <h1>云服务模式</h1>
-                <p class="description">提供计算、存储、数据库等基础设施服务</p>
-            </div>
-
-            <div class="section">
-                <h2>核心原理</h2>
-                <p>按使用量计费提供IT基础设施服务，企业无需自建机房和购买硬件。云服务商通过规模效应降低成本，并提供丰富的附加服务如数据库、AI、安全等。</p>
-                <p>云服务将计算资源像水电一样商品化，用户用多少付多少。云服务商通过大规模建设数据中心摊薄成本，并通过技术创新不断提高资源利用率和降低能耗。</p>
-            </div>
-
-            <div class="examples-box">
-                <h3>典型案例</h3>
-                <p>AWS、Azure、阿里云、腾讯云</p>
-            </div>
-
-            <div class="section pros-section">
-                <h2>优势</h2>
-                <ul>
-                    <li>持续稳定的收入流</li>
-                    <li>客户粘性极高，迁移成本大</li>
-                    <li>可扩展性强，边际成本低</li>
-                    <li>可提供多种增值服务提升ARPU值</li>
-                    <li>技术门槛高，护城河深</li>
-                </ul>
-            </div>
-
-            <div class="section cons-section">
-                <h2>缺点</h2>
-                <ul>
-                    <li>前期投入巨大，重资产运营</li>
-                    <li>技术门槛高，需要顶尖人才</li>
-                    <li>竞争激烈，价格战频繁</li>
-                    <li>数据安全和隐私合规挑战大</li>
-                    <li>运维复杂度高</li>
-                </ul>
-            </div>
+                <div class="header"><span class="number">6</span><h1>云服务模式</h1><p class="description">提供计算、存储、数据库等基础设施服务</p></div>
+                <div class="section"><h2>核心原理</h2><p>按使用量计费提供IT基础设施服务，企业无需自建机房和购买硬件。云服务商通过规模效应降低成本，并提供丰富的附加服务如数据库、AI、安全等。</p><p>云服务将计算资源像水电一样商品化，用户用多少付多少。云服务商通过大规模建设数据中心摊薄成本，并通过技术创新不断提高资源利用率和降低能耗。</p></div>
+                <div class="examples-box"><h3>典型案例</h3><p>AWS、Azure、阿里云、腾讯云</p></div>
+                <div class="section"><h2>云服务架构</h2>
+                    <div class="diagram-container"><h3>云服务分层架构</h3>
+                        <div class="mermaid">graph TB
+                            I[用户/企业] --> S[云服务层]
+                            S --> P[IaaS基础设施]
+                            S --> PaaS[平台即服务]
+                            S --> SaaS[软件即服务]
+                            P --> C[计算资源]
+                            P --> St[存储资源]
+                            P --> N[网络资源]
+                            PaaS --> Db[数据库]
+                            PaaS --> AI[AI/ML]
+                            SaaS --> App[应用软件]
+                            style S fill:#667eea,color:#fff
+                        </div>
+                    </div>
+                </div>
+                <div class="section"><h2>服务类型</h2>
+                    <div class="service-types">
+                        <div class="service-card"><h5>IaaS</h5><p>基础设施即服务 - 虚拟机、存储、网络</p></div>
+                        <div class="service-card"><h5>PaaS</h5><p>平台即服务 - 开发环境、数据库</p></div>
+                        <div class="service-card"><h5>SaaS</h5><p>软件即服务 - 在线应用、协作工具</p></div>
+                        <div class="service-card"><h5>FaaS</h5><p>函数即服务 - 无服务器计算</p></div>
+                    </div>
+                </div>
+                <div class="section"><h2>用户交互流程</h2>
+                    <div class="diagram-container"><h3>云服务使用流程</h3>
+                        <div class="mermaid">sequenceDiagram
+                            participant 用户
+                            participant 云平台
+                            participant 资源池
+                            Note over 用户,云平台: 开通服务
+                            用户->>云平台: 注册/认证
+                            用户->>云平台: 选择服务类型
+                            云平台->>资源池: 分配资源
+                            资源池->>用户: 提供计算/存储资源
+                            Note over 用户,云平台: 使用服务
+                            loop 使用过程中
+                                用户->>云平台: 调用API/使用资源
+                                云平台->>资源池: 动态调配
+                            end
+                            Note over 用户,云平台: 计费结算
+                            云平台->>用户: 按量计费账单
+                        </div>
+                    </div>
+                </div>
+                <div class="section"><h2>优势 vs 缺点对比</h2>
+                    <table class="comparison-table">
+                        <thead><tr><th style="width:50%">优势 ✓</th><th style="width:50%">缺点 ✗</th></tr></thead>
+                        <tbody>
+                            <tr><td>持续稳定的收入流</td><td>前期投入巨大，重资产运营</td></tr>
+                            <tr><td>客户粘性极高，迁移成本大</td><td>技术门槛高，需要顶尖人才</td></tr>
+                            <tr><td>可扩展性强，边际成本低</td><td>竞争激烈，价格战频繁</td></tr>
+                            <tr><td>可提供多种增值服务提升ARPU值</td><td>数据安全和隐私合规挑战大</td></tr>
+                            <tr><td>技术门槛高，护城河深</td><td>运维复杂度高</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
+    <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </body>
 </html>
